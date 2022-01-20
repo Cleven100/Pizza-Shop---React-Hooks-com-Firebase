@@ -1,6 +1,8 @@
-import react from 'react'
+
 import React from 'react'
 import styled from 'styled-components'
+import { FoodLabel } from '../Menu/FoodGrid'
+
 
 const Dialog = styled.div`
 width: 500px;
@@ -27,14 +29,45 @@ z-index: 6;
 
 `
 
-export function FoodDialog(){
-    return <>
-     <DialogShadow/>
+
+
+const DialogBanner = styled.div`
+min-height: 200px;
+margin-bottom: 20px;
+background-image: URL("img/pizza1.png");
+background-position: center;
+background-size: cover;
+
+`
+
+const DialogBannerName = styled(FoodLabel)`
+top: 75px;
+font-size: 30px;
+padding: 10px;
+`
+
+
+
+export function FoodDialog({openFood, setOpenFood}){
+    function close(){
+      setOpenFood();
+    }
+
+    if(!openFood) return null;
+    return (
+        <>
+     <DialogShadow onClick={close}/>
      <Dialog>
-         Test Dialog
+         <DialogBanner img={openFood}>
+
+             <DialogBannerName>{openFood.name}</DialogBannerName>
+
+         </DialogBanner>
+        
      </Dialog>
-    
+     </>
+    )
      
     
-    </>
+    
 }

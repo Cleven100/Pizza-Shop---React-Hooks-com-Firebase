@@ -22,7 +22,7 @@ return <MenuStyled>
                {foods.map(food => (
                  
                   <Food onClick={() => {
-                    setOpenFood(food.name)
+                    setOpenFood(food)
                   }}>
                       <FoodLabel>{food.name}
                       </FoodLabel> 
