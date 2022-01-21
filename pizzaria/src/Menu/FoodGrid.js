@@ -6,7 +6,7 @@ import { Title } from "../Styles/title"
 export const FoodGrid = styled.div`
 
 display: grid;
-grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+grid-template-columns: 1fr 1fr 1fr 1fr;
 gap: 20px;
 
 
