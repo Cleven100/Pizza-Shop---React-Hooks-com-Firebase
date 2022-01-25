@@ -12,7 +12,7 @@ const OrderStyled = styled.div`
 position: fixed;
 right: 0px;
 top: 500px;
-width: 300px;
+width: 350px;
 background-color: white;
 height: 50%;
 z-index: 10;
@@ -53,7 +53,7 @@ font-size: 150px;
 
 
 
-export function Order({orders}){
+export function Order({orders, setOrders}){
 
      const subtotal = orders.reduce((total, order) => {
        
@@ -61,13 +61,22 @@ export function Order({orders}){
 
      }, 0)
 
+
+    const deleteItem = index => {
+        const newOrders = [...orders]
+        newOrders.splice(index, 1)
+        setOrders(newOrders) 
+
+    }
+
+
     
     return( <OrderStyled>
        {orders.length === 0 ?  <OrderContent> Suas ordens estão aqui </OrderContent> :
         <OrderContent> 
             {" "}
             <OrderContainer> Suas Ordens:  </OrderContainer>
-            { orders.map(order => (
+            { orders.map((order, index) => (
                 
                <OrderContainer>
                    
@@ -75,9 +84,10 @@ export function Order({orders}){
                         
                       <div>{order.quantity}</div>
                      <div>{order.name}</div> 
-                     <div/>
-                      <div >{formatPrice(getPrice(order))}</div>
                      
+                      <div >{formatPrice(getPrice(order))}</div>
+                      
+                     <div style={{cursor: 'pointer'}} onClick={() => {deleteItem(index)}}>🗑️</div>
                       
                        
                       
