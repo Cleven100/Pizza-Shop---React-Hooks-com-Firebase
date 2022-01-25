@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { DialogContent, DialogFooter, CofirmButton, ConfirmButton } from '../FoodDialog/FoodDialog';
 import { formatPrice } from '../Data/FoodData';
 import { getPrice } from '../FoodDialog/FoodDialog';
-import { getQuantity  } from '../FoodDialog/FoodDialog';
+
 
 let valor2;
 
@@ -54,6 +54,13 @@ font-size: 150px;
 
 
 export function Order({orders}){
+
+     const subtotal = orders.reduce((total, order) => {
+       
+        return total + getPrice(order)
+
+     }, 0)
+
     
     return( <OrderStyled>
        {orders.length === 0 ?  <OrderContent> Suas ordens estão aqui </OrderContent> :
@@ -66,7 +73,7 @@ export function Order({orders}){
                    
                   <OrderItem >
                         
-                      <div>{getQuantity(order)}</div>
+                      <div>{order.quantity}</div>
                      <div>{order.name}</div> 
                      <div/>
                       <div >{formatPrice(getPrice(order))}</div>
@@ -79,17 +86,23 @@ export function Order({orders}){
                   </OrderItem >   
                  
                </OrderContainer>
+              
              
             ))
                
            
             }
-            
+             <OrderContainer>
+                 <OrderItem>
+                     <div/>
+                     <div>SubTotal: {formatPrice(subtotal)}</div>
+                 </OrderItem>
+             </OrderContainer>
        </OrderContent>}
          
        
 
-       <div>SubTotal: </div>
+       
             
             <DialogFooter>
                 <ConfirmButton>Checkout</ConfirmButton>

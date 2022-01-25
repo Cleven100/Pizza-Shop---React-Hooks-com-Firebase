@@ -7,6 +7,7 @@ import { Title } from '../Styles/title'
 import { formatPrice } from '../Data/FoodData'
 import { QuantityInput } from './QuantityInput'
 import { useQuantity } from '../Hooks/useQuantity'
+import { Toppings } from './Toppings'
 
 
 
@@ -94,9 +95,7 @@ padding: 10px;
         return order.quantity * order.price;
     }
 
- export function getQuantity(order){
-     return order.quantity
- }   
+ 
 
  
 
@@ -133,6 +132,7 @@ export function FoodDialogContainer({openFood, setOpenFood, setOrders, orders}){
 
          <DialogContent>
              <QuantityInput  quantity={quantity}/>
+             
          </DialogContent>
 
          
