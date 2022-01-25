@@ -5,7 +5,9 @@ import { Navbar } from "./Navbar/Navbar";
 import { FoodDialog } from "./FoodDialog/FoodDialog";
 import { Banner } from './Banner/Banner'
 import { Menu } from "./Menu/Menu";
-import { Order } from "./Order/Order"
+import { Order } from "./Order/Order";
+import { useOpenFood } from "./Hooks/useOpenFood";
+import {useOrders} from "./Hooks/useOrders";
 
 const GlobalStyle = createGlobalStyle`
 html{
@@ -26,16 +28,17 @@ body{
 function App(){
 
  
-    const[openFood, setOpenFood] = useState()
+    const openFood = useOpenFood()
+    const orders = useOrders()
 
     return(
       <div>
         <GlobalStyle/>
-        <FoodDialog openFood={openFood} setOpenFood={setOpenFood}/>
+        <FoodDialog {...openFood} {...orders}/>
         <Navbar/>
-        <Order/>
+        <Order {...orders}/>
         <Banner/>
-        <Menu setOpenFood={setOpenFood}/>
+        <Menu {...openFood}/>
        
       </div>
     )

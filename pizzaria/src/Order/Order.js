@@ -1,17 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
+import { DialogContent, DialogFooter, CofirmButton, ConfirmButton } from '../FoodDialog/FoodDialog';
+import { formatPrice } from '../Data/FoodData';
+import { getPrice } from '../FoodDialog/FoodDialog';
+import { getQuantity  } from '../FoodDialog/FoodDialog';
 
+let valor2;
 
 const OrderStyled = styled.div`
 
 position: fixed;
 right: 0px;
-top: 48px;
+top: 500px;
 width: 300px;
 background-color: white;
-height: calc(100% - 48px);
+height: 50%;
 z-index: 10;
 box-shadow: 4px 0px 5px 4px grey;
+
+`
+
+const OrderContent = styled.div`
+
+display: flex;
+flex-direction: column;
+padding: 20px;
+
+
+`
+const OrderContainer = styled.div`
+padding: 10px 0px;
+border-bottom: 1px solid grey;
+
+`
+const OrderItem = styled.div`
+
+padding: 10px 0x;
+display: grid;
+grid-template-columns: 20px 150px 20px 60px;
+justify-content: space-between;
+
+`
+
+const notVisible = styled.div`
+visibility: hidden;
+font-size: 150px;
 
 `
 
@@ -19,6 +52,49 @@ box-shadow: 4px 0px 5px 4px grey;
 
 
 
-export function Order(){
-    return <OrderStyled>Você pode conferir seus pedidos aqui</OrderStyled>
+
+export function Order({orders}){
+    
+    return( <OrderStyled>
+       {orders.length === 0 ?  <OrderContent> Suas ordens estão aqui </OrderContent> :
+        <OrderContent> 
+            {" "}
+            <OrderContainer> Suas Ordens:  </OrderContainer>
+            { orders.map(order => (
+                
+               <OrderContainer>
+                   
+                  <OrderItem >
+                        
+                      <div>{getQuantity(order)}</div>
+                     <div>{order.name}</div> 
+                     <div/>
+                      <div >{formatPrice(getPrice(order))}</div>
+                     
+                      
+                       
+                      
+
+
+                  </OrderItem >   
+                 
+               </OrderContainer>
+             
+            ))
+               
+           
+            }
+            
+       </OrderContent>}
+         
+       
+
+       <div>SubTotal: </div>
+            
+            <DialogFooter>
+                <ConfirmButton>Checkout</ConfirmButton>
+            </DialogFooter>
+        
+    </OrderStyled>
+    )
 }
